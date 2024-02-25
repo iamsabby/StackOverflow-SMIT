@@ -1,0 +1,97 @@
+body {
+    background-color: rgb(245, 243, 243);
+}
+.login-container {
+    max-width: 400px;
+    margin: 0 auto; /* Center the container horizontally */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    
+}
+.login-logo {
+    margin-bottom: 20px;
+    width: 70px;
+    height: auto;
+}
+#fb-btn{
+    background-color: #385499;
+    width: 390px;
+    margin-top: 5px;
+}
+#git-btn{
+    background-color: black;
+    width: 390px;
+    margin-top: 5px;
+}
+#ggl-btn{
+    background-color: white;
+    color: black;
+    width: 390px;
+}
+#btn-logo{
+    width: 20px;
+    height: auto;
+}
+.label-bold {
+    font-weight: bold;
+}
+.custom-search {
+    width: 700px !important; /* Adjust this value as needed */
+}
+/* .navbar-nav .nav-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+    background-color: rgba(210, 8%, 25%, 1);
+    
+} */
+
+#navdrop{
+    padding: 0;
+    padding-left: 15px;
+    margin-left: -15px;
+    margin-right: 10px;
+    padding-right: 15px;
+    border-style: none;
+    color: black;
+    font-size: 30px;
+}
+
+#logonav{
+    padding: 0%;
+}
+
+#logo2nav{
+    padding: 0%;
+    margin-left: -25px;
+}
+
+#logo12nav{
+    margin-left: -15px;
+    padding-left: 15px;
+}
+
+#login1{
+    margin-right: 10px;
+}
+
+.question-box {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 50px; /* Adjust margin-top as needed */
+}
+
+#smallcontainer{
+    margin: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 15px;
+}
+
+#croras{
+    margin: 25px;
+}
