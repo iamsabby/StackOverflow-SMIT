@@ -40,20 +40,47 @@ const signup = () => {
     console.log(email);
     console.log(password);
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            console.log("User signed up successfully:", user);
-            // You can redirect the user or show a success message here
+    // Check if the email is already registered
+    firebase.auth().fetchSignInMethodsForEmail(email)
+        .then((methods) => {
+            if (methods && methods.length > 0) {
+                // Email is already registered
+                const errorMessage = "This email is already in use.";
+                console.error("Error signing up:", errorMessage);
+                
+                // Display error message to the user
+                const errorMessageContainer = document.getElementById("error-message-container");
+                const errorMessageElement = document.getElementById("error-message");
+                errorMessageElement.textContent = errorMessage;
+                errorMessageContainer.classList.remove("d-none");
+            } else {
+                // Email is not registered, proceed with sign-up
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        // Signed in
+                        var user = userCredential.user;
+                        console.log("User signed up successfully:", user);
+                        // You can redirect the user or show a success message here
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.error("Error signing up:", errorMessage);
+                        
+                        // Display error message to the user
+                        const errorMessageContainer = document.getElementById("error-message-container");
+                        const errorMessageElement = document.getElementById("error-message");
+                        errorMessageElement.textContent = errorMessage;
+                        errorMessageContainer.classList.remove("d-none");
+                    });
+            }
         })
         .catch((error) => {
-            var errorCode = error.code;
             var errorMessage = error.message;
-            console.error("Error signing up:", errorMessage);
-            // Handle errors, display error messages, etc.
+            console.error("Error fetching sign-in methods:", errorMessage);
         });
 }
+
 
 const signIn = () => {
     const email = document.getElementById("email").value;
@@ -70,3 +97,36 @@ const signIn = () => {
     var errorMessage = error.message;
   });
 }
+
+document.getElementById("login-button").addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    const email = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Check if user exists before login attempt
+    auth.fetchSignInMethodsForEmail(email)
+      .then((signInMethods) => {
+        if (signInMethods.length === 0) {
+          // Account doesn't exist, display error message
+          document.getElementById("error-message").innerText = "No such account exists. Please sign up first.";
+        } else {
+          // User exists, proceed with login attempt using Firebase Auth
+          auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              // User successfully logged in
+              // Redirect to a different page or display a success message
+              console.log("Logged in successfully!");
+            })
+            .catch((error) => {
+              // Handle other login errors (e.g., wrong password)
+              console.error("Login error:", errorMessage);
+            });
+        }
+      })
+      .catch((error) => {
+        // Handle fetching sign-in methods error
+        console.error("Error fetching sign-in methods:", error);
+      });
+  });
+
